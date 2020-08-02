@@ -18,7 +18,7 @@ namespace ChangeDetector.Core.Processor
                 projectReferences.Add(lines.Current.GetAttribute("Include", ""));
             }
 
-            return projectReferences;
+            return FromRelativeToFullPath(csprojFilePath, projectReferences);
         }
     }
 }

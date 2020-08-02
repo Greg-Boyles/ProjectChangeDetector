@@ -11,10 +11,10 @@ namespace ChangeDetector.Core.Processor
         protected XPathDocument LoadCsproj(string csprojFilePath) =>
             new XPathDocument(csprojFilePath);
 
-        public List<string> FromRelativeToFullPath(string csprojPath, List<string> projectReferences) =>
+        protected internal List<string> FromRelativeToFullPath(string csprojPath, List<string> projectReferences) =>
             projectReferences.ConvertAll(x => FromRelativeToFullPath(csprojPath, x)).ToList();
 
-        protected string FromRelativeToFullPath(string csprojPath, string relativeFilePath)
+        protected internal string FromRelativeToFullPath(string csprojPath, string relativeFilePath)
         {
             var path = Path.GetDirectoryName(csprojPath);
 

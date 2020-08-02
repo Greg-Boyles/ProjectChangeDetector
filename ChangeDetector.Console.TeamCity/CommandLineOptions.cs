@@ -9,5 +9,8 @@ namespace ChangeDetector.Console.TeamCity
 
         [Option("changedFilesLog", Required = true, HelpText = "Teamcity changed files text file")]
         public string ChangedFilesLog { get; set; }
+
+        [Option("checkOutPath", Required = true, HelpText = "Teamcity changed files text file")]
+        public string CheckOutPath { get; set; }
     }
 }

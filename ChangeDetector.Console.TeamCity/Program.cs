@@ -22,19 +22,19 @@ namespace ChangeDetector.Console.TeamCity
                 return 1;
             }
 
-            if (!ChangeLogFound(options.ChangedFilesLog))
+            if (!FileFound(options.ChangedFilesLog))
             {
                 Log.Fatal("Change log not found");
                 return 1;
             }
 
-            if (!ChangeLogFound(options.CsorojPath))
+            if (!FileFound(options.CsorojPath))
             {
                 Log.Fatal("Csproj not found");
                 return 1;
             }
 
-            var changeLog = ProcessChangeLog(options.ChangedFilesLog);
+            var changeLog = ProcessChangeLog(options.ChangedFilesLog, options.CheckOutPath);
             changeLog.CsprojPath = options.CsorojPath;
 
             Detection.Build(changeLog).Run();
@@ -42,13 +42,13 @@ namespace ChangeDetector.Console.TeamCity
             return 0;
         }
 
-        private static bool ChangeLogFound(string changeLogFilePath) =>
-            File.Exists(changeLogFilePath);
+        private static bool FileFound(string file) =>
+            File.Exists(file);
 
-        private static ChangeLog ProcessChangeLog(string changeLogFilePath)
+        private static ChangeLog ProcessChangeLog(string changeLogFilePath, string checkOutPath)
         {
             var result = new ChangeLog();
-            string[] rawLogLines = File.ReadAllLines(changeLogFilePath);
+            var rawLogLines = File.ReadAllLines(changeLogFilePath);
 
             if (rawLogLines.Length == 0)
                 return result;
@@ -58,7 +58,7 @@ namespace ChangeDetector.Console.TeamCity
                 var split = rawLogLine.Split(':');
                 result.ChangedFiles.Add(new ChangeLog.ChangedFile
                 {
-                    FilePath = split[0],
+                    FilePath = Path.Combine(checkOutPath, split[0]),
                     CommitHash = split[2]
                 });
             }
