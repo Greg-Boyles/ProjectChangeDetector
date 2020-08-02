@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ChangeDetector.Console.TeamCity": {
+      "commandName": "Project",
+      "commandLineArgs": "--csorojPath C:\\Projects\\CMS\\Apollo\\Source\\Apollo.WatchedIt.Web\\Apollo.WatchedIt.Web.csproj --changedFilesLog C:\\Users\\Greg\\Desktop\\changedFiles3052671570008452406.txt"
+    }
+  }
+}
